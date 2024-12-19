@@ -156,10 +156,22 @@ const getData = (dataSet, element) => {
 
 export const getElementsByTag = (dataSet, tag) => {
   const matcher = matchFn(tag);
-  if (!matcher) throw new Error('Invalid tag');
-
-  return Object.keys(dataSet.elements)
-    .filter(matcher)
-    .map((key) => getData(dataSet, dataSet.elements[key]))
-    .filter(Boolean);
+  if (!matcher) {
+    throw new Error('Invalid tag');
+  }
+  const foundTags = [];
+  for (const [key, element] of Object.entries(dataSet.elements)) {
+    if (matcher(key)) {
+      const data = getData(dataSet, element);
+      if (data) {
+        foundTags.push(data);
+      }
+    } else if (element?.items) {
+      for (const item of element.items) {
+        const data = getElementsByTag(item.dataSet, tag);
+        foundTags.push(...data);
+      }
+    }
+  }
+  return foundTags;
 };
