@@ -1,0 +1,28 @@
+{
+  "name": "dicom-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:dev": "nodemon index.js",
+    "start:minio": "MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password minio server ~/minio//mnt/data --address :8001 --console-address :8002",
+    "start:dev:debug": "nodemon --inspect=9230 index.js",
+    "start:debug": "npm run start:minio & npm run start:dev:debug",
+    "start": "npm run start:minio & npm run start:dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dcmjs-imaging": "^0.1.26",
+    "dicom-parser": "^1.8.21",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "minio": "^8.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.9",
+    "sharp": "^0.33.5"
+  }
+}
