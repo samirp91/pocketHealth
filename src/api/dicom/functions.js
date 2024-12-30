@@ -144,6 +144,7 @@ const getData = (dataSet, element) => {
   if (!name) return null;
 
   const value = getValue(dataSet, element);
+  if (!value) return null;
   const isString = typeof value === 'string';
   const key = typeof value === 'string' ? 'value' : 'items';
   const convertedValue = isString ? value : value.items;
